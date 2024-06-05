@@ -80,6 +80,8 @@ import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.TimeZone;
 
 import xyz.doikki.videoplayer.player.VideoView;
@@ -168,6 +170,41 @@ public class LivePlayActivity extends BaseActivity {
 
     private boolean isSHIYI = false;
     private static String shiyi_time;//时移时间
+
+    private HashMap<String, String> setPlayHeaders(String url) {
+        HashMap<String, String> header = new HashMap();
+        try {
+            boolean matchTo = false;
+            JSONArray livePlayHeaders = new JSONArray(ApiConfig.get().getLivePlayHeaders().toString());
+            for (int i = 0; i < livePlayHeaders.length(); i++) {
+                JSONObject headerObj = livePlayHeaders.getJSONObject(i);
+                JSONArray flags = headerObj.getJSONArray("flag");
+                JSONObject headerData = headerObj.getJSONObject("header");
+                for (int j = 0; j < flags.length(); j++) {
+                    String flag = flags.getString(j);
+                    if (url.contains(flag)) {
+                        matchTo = true;
+                        break;
+                    }
+                }
+                if (matchTo) {
+                    Iterator<String> keys = headerData.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        String value = headerData.getString(key);
+                        header.put(key, value);
+                    }
+                    break;
+                }
+            }
+            if (!matchTo) {
+                header.put("User-Agent", "Lavf/59.27.100");
+            }
+        } catch (Exception e) {
+            header.put("User-Agent", "Lavf/59.27.100");
+        }
+        return header;
+    }
 
     @Override
     protected int getLayoutResID() {
@@ -856,7 +893,7 @@ public class LivePlayActivity extends BaseActivity {
         }
 
         getEpg(new Date());
-        mVideoView.setUrl(currentLiveChannelItem.getUrl());
+        mVideoView.setUrl(currentLiveChannelItem.getUrl(), setPlayHeaders(currentLiveChannelItem.getUrl()));
         showChannelInfo();
         mVideoView.start();
         return true;
@@ -894,7 +931,7 @@ public class LivePlayActivity extends BaseActivity {
         }
 
         getEpg(new Date());
-        mVideoView.setUrl(currentLiveChannelItem.getUrl());
+        mVideoView.setUrl(currentLiveChannelItem.getUrl(), setPlayHeaders(currentLiveChannelItem.getUrl()));
         showChannelInfo();
         mVideoView.start();
         return true;
@@ -1164,7 +1201,7 @@ public class LivePlayActivity extends BaseActivity {
                 if (now.compareTo(selectedData.startdateTime) >= 0 && now.compareTo(selectedData.enddateTime) <= 0) {
                     mVideoView.release();
                     isSHIYI = false;
-                    mVideoView.setUrl(currentLiveChannelItem.getUrl());
+                    mVideoView.setUrl(currentLiveChannelItem.getUrl(), setPlayHeaders(currentLiveChannelItem.getUrl()));
                     mVideoView.start();
                     epgListAdapter.setShiyiSelection(-1, false, timeFormat.format(date));
                 }
@@ -1174,7 +1211,7 @@ public class LivePlayActivity extends BaseActivity {
                     mVideoView.release();
                     shiyi_time = shiyiStartdate + "-" + shiyiEnddate;
                     isSHIYI = true;
-                    mVideoView.setUrl(currentLiveChannelItem.getUrl() + "?playseek=" + shiyi_time);
+                    mVideoView.setUrl(currentLiveChannelItem.getUrl() + "?playseek=" + shiyi_time, setPlayHeaders(currentLiveChannelItem.getUrl()));
                     mVideoView.start();
                     epgListAdapter.setShiyiSelection(position, true, timeFormat.format(date));
                     epgListAdapter.notifyDataSetChanged();
@@ -1203,7 +1240,7 @@ public class LivePlayActivity extends BaseActivity {
                 if (now.compareTo(selectedData.startdateTime) >= 0 && now.compareTo(selectedData.enddateTime) <= 0) {
                     mVideoView.release();
                     isSHIYI = false;
-                    mVideoView.setUrl(currentLiveChannelItem.getUrl());
+                    mVideoView.setUrl(currentLiveChannelItem.getUrl(), setPlayHeaders(currentLiveChannelItem.getUrl()));
                     mVideoView.start();
                     epgListAdapter.setShiyiSelection(-1, false, timeFormat.format(date));
                 }
@@ -1213,7 +1250,7 @@ public class LivePlayActivity extends BaseActivity {
                     mVideoView.release();
                     shiyi_time = shiyiStartdate + "-" + shiyiEnddate;
                     isSHIYI = true;
-                    mVideoView.setUrl(currentLiveChannelItem.getUrl() + "?playseek=" + shiyi_time);
+                    mVideoView.setUrl(currentLiveChannelItem.getUrl() + "?playseek=" + shiyi_time, setPlayHeaders(currentLiveChannelItem.getUrl()));
                     mVideoView.start();
                     epgListAdapter.setShiyiSelection(position, true, timeFormat.format(date));
                     epgListAdapter.notifyDataSetChanged();
@@ -1560,7 +1597,7 @@ public class LivePlayActivity extends BaseActivity {
             case 2://播放解码
                 mVideoView.release();
                 livePlayerManager.changeLivePlayerType(mVideoView, position, currentLiveChannelItem.getChannelName());
-                mVideoView.setUrl(currentLiveChannelItem.getUrl());
+                mVideoView.setUrl(currentLiveChannelItem.getUrl(), setPlayHeaders(currentLiveChannelItem.getUrl()));
                 mVideoView.start();
                 break;
             case 3://超时换源
