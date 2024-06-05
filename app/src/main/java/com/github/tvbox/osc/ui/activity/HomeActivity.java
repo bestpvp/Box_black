@@ -43,6 +43,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
+import com.github.tvbox.osc.base.App;
 import com.github.tvbox.osc.base.BaseActivity;
 import com.github.tvbox.osc.base.BaseLazyFragment;
 import com.github.tvbox.osc.bean.AbsSortXml;
@@ -68,6 +69,7 @@ import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.FileUtils;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.LOG;
+import com.github.tvbox.osc.util.LocalIPAddress;
 import com.github.tvbox.osc.viewmodel.SourceViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.orhanobut.hawk.Hawk;
@@ -157,6 +159,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void showDialog(Context context) {
+        String ip = LocalIPAddress.getMacAddress(context);
+        System.out.println("当前IP: "+ip);
         if (!Hawk.get("welcome_dialog", false)) {
             new AlertDialog.Builder(context)
                     .setTitle(CustomUtil.getTitle())

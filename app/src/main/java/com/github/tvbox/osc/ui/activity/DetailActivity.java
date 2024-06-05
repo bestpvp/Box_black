@@ -53,6 +53,7 @@ import com.github.tvbox.osc.ui.dialog.DescDialog;
 import com.github.tvbox.osc.ui.dialog.PushDialog;
 import com.github.tvbox.osc.ui.dialog.QuickSearchDialog;
 import com.github.tvbox.osc.ui.fragment.PlayFragment;
+import com.github.tvbox.osc.util.CustomUtil;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.ImgUtil;
@@ -392,7 +393,8 @@ public class DetailActivity extends BaseActivity {
                         FastClickCheckUtil.check(v);
                         DescDialog dialog = new DescDialog(mContext);
                         //  dialog.setTip("内容简介");
-                        dialog.setDescribe(removeHtmlTag(mVideo.des));
+//                        dialog.setDescribe(removeHtmlTag(mVideo.des));
+                        dialog.setDescribe(removeHtmlTag(CustomUtil.filterString(mVideo.des)));
                         dialog.show();
                     }
                 });
@@ -407,7 +409,8 @@ public class DetailActivity extends BaseActivity {
                     public void run() {
                         FastClickCheckUtil.check(v);
                         ClipboardManager clipprofile = (ClipboardManager) DetailActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
-                        String cpContent = removeHtmlTag(mVideo.des);
+//                        String cpContent = removeHtmlTag(mVideo.des);
+                        String cpContent = removeHtmlTag(CustomUtil.filterString(mVideo.des));
                         ClipData clipData = ClipData.newPlainText(null, cpContent);
                         clipprofile.setPrimaryClip(clipData);
                         Toast.makeText(DetailActivity.this, "已复制：" + cpContent, Toast.LENGTH_SHORT).show();
@@ -741,13 +744,13 @@ public class DetailActivity extends BaseActivity {
                     }
                     mVideo = absXml.movie.videoList.get(0);
                     mVideo.id = vodId;
-                    if (TextUtils.isEmpty(mVideo.name)) mVideo.name = "片名";
+                    if (TextUtils.isEmpty(mVideo.name)) mVideo.name = "卧龙TV";
                     vodInfo = new VodInfo();
                     vodInfo.setVideo(mVideo);
                     vodInfo.sourceKey = mVideo.sourceKey;
                     sourceKey = mVideo.sourceKey;
 
-                    tvName.setText(mVideo.name);
+                    tvName.setText(CustomUtil.filterString(mVideo.name));
                     setTextShow(tvSite, getString(R.string.det_source), ApiConfig.get().getSource(firstsourceKey).getName());
                     setTextShow(tvYear, getString(R.string.det_year), mVideo.year == 0 ? "" : String.valueOf(mVideo.year));
                     setTextShow(tvArea, getString(R.string.det_area), mVideo.area);
@@ -759,7 +762,8 @@ public class DetailActivity extends BaseActivity {
                     }
                     setTextShow(tvActor, getString(R.string.det_actor), mVideo.actor);
                     setTextShow(tvDirector, getString(R.string.det_dir), mVideo.director);
-                    setTextShow(tvDes, getString(R.string.det_des), removeHtmlTag(mVideo.des));
+//                    setTextShow(tvDes, getString(R.string.det_des), removeHtmlTag(mVideo.des));
+                    setTextShow(tvDes, getString(R.string.det_des), removeHtmlTag(CustomUtil.filterString(mVideo.des)));
                     if (!TextUtils.isEmpty(mVideo.pic)) {
                         // takagen99 : Use Glide instead : Rounding Radius is in pixel
                         ImgUtil.load(mVideo.pic, ivThumb, 14);
@@ -987,7 +991,8 @@ public class DetailActivity extends BaseActivity {
         hadQuickStart = true;
         OkGo.getInstance().cancelTag("quick_search");
         quickSearchWord.clear();
-        searchTitle = mVideo.name;
+//        searchTitle = mVideo.name;
+        searchTitle = CustomUtil.filterString(mVideo.name);
         quickSearchData.clear();
         quickSearchWord.add(searchTitle);
         // 分词

@@ -120,7 +120,7 @@ public class M3U8 {
                 lines[i] = "";
             }
         }
-//        ToastHelper.showToast(App.getInstance(), "已移除视频广告");
+        ToastHelper.showToast(App.getInstance(), CustomUtil.getPrefix()+"原生广告过滤已完成");
         return String.join(linesplit, lines);
     }
 

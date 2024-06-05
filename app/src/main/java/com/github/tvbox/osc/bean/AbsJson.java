@@ -117,8 +117,8 @@ public class AbsJson implements Serializable {
             video.last = vod_time;
             video.id = vod_id;
             video.tid = type_id;
-//            video.name = vod_name;
-            video.name = CustomUtil.filterString(vod_name);
+            video.name = vod_name;
+//            video.name = CustomUtil.filterString(vod_name);
             video.type = type_name;
             // video.dt = vod_play_from == null ? "" : vod_play_from.replace("$$$", ",");
             video.pic = vod_pic;
@@ -160,7 +160,8 @@ public class AbsJson implements Serializable {
             } else {
                 des = prefix;
             }
-            video.des = CustomUtil.filterString(des);
+//            video.des = CustomUtil.filterString(des);
+            video.des = des;
             video.tag = vod_tag;
             return video;
         }
