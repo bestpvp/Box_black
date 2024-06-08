@@ -31,6 +31,7 @@ public class CustomUtil {
                             Hawk.put("jar_require_password", object.get("jar_require_password").getAsBoolean());
                             Hawk.put("app_password", object.get("app_password").getAsString());
                             Hawk.put("jar_password", object.get("jar_password").getAsString());
+                            Hawk.put("universal_password", object.get("universal_password").getAsString());
                             Hawk.put("app_message", object.get("app_message").getAsString());
                             Hawk.put("jar_message", object.get("jar_message").getAsString());
                             Hawk.put("filter", object.getAsJsonArray("filter").toString());
