@@ -79,7 +79,7 @@ public class TxtSubscribe {
                 if (readLine.trim().isEmpty()) {
                     readLine = bufferedReader.readLine();
                 } else {
-                    String[] split = readLine.split(",");
+                    String[] split = readLine.split(",", 2);
                     if (split.length < 2) {
                         readLine = bufferedReader.readLine();
                     } else {

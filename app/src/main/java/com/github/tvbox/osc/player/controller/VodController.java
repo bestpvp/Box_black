@@ -900,7 +900,7 @@ public class VodController extends BaseController {
                     int current = (int) mControlWrapper.getCurrentPosition();
                     int duration = (int) mControlWrapper.getDuration();
                     if (current < duration / 2) return;
-                    mPlayerConfig.put("et", (duration - current) / 1000);
+                    mPlayerConfig.put("et", current / 1000);
 
                     updatePlayerCfgView();
                     listener.updatePlayerCfg();
@@ -1118,7 +1118,7 @@ public class VodController extends BaseController {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (et > 0 && position + (et * 1000) >= duration) {
+            if (et > 0 && (position / 1000) >= et) {
                 skipEnd = false;
                 listener.playNext(true);
             }
