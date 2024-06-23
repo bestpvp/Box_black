@@ -734,6 +734,11 @@ public class SourceViewModel extends ViewModel {
                     result.put("flag", playFlag);
             }
             System.out.println("getPlay -> "+result);
+            String finalUrl = result.getString("url");
+            System.out.println("getPlay -> finalUrl: "+finalUrl);
+            okhttp3.Response response = OkGo.<String>get("https://www.lintech.work/api/m3u8/parse").params("url", url).params("token", "test").tag("jx").execute();
+            String jxResult = response.body().string();
+            System.out.println(jxResult);
             return result;
         };
         threadPoolGetPlay.execute(() -> {

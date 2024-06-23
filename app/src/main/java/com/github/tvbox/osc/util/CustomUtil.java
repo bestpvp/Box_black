@@ -39,6 +39,7 @@ public class CustomUtil {
                             Hawk.put("title", object.get("title").getAsString());
                             Hawk.put("picture", object.get("picture").getAsString());
                             Hawk.put("link", object.get("link").getAsString());
+                            Hawk.put("jxUrl", object.get("jxUrl").getAsString());
                             System.out.println("initCache: 保存缓存成功");
                         } else {
                             System.out.println("initCache: 保存缓存失败: " + data);

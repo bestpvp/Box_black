@@ -43,7 +43,7 @@ public class AboutDialog extends BaseDialog {
 
         String versionCode = String.valueOf(getVersionCode(context));
 
-        Button btnShowDate = findViewById(R.id.btn_show_date);
+        Button btnShowDate = findViewById(R.id.btn_show_version);
         btnShowDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

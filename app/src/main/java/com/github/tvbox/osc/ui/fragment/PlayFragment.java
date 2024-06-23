@@ -620,6 +620,7 @@ public class PlayFragment extends BaseLazyFragment {
     }
 
     void playUrl(String url, HashMap<String, String> headers) {
+        System.out.println("卧龙TV: PlayFragment playUrl -> "+url);
         if (!Hawk.get(HawkConfig.VIDEO_PURIFY, true)) {
             startPlayUrl(url, headers);
             return;
