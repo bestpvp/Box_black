@@ -9,8 +9,8 @@ android {
         applicationId 'com.github.tvbox.wolong'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 240613
-        versionName "240613"
+        versionCode 240624
+        versionName "240624"
         multiDexEnabled true
         //设置room的Schema的位置
         javaCompileOptions {
@@ -54,7 +54,7 @@ android {
 
         hisense {
             //海信的
-            applicationId 'com.github.hisense.osc.tk'
+            applicationId 'com.github.tvbox.wolong.hisense'
             dimension = "brand"
         }
     }
@@ -62,7 +62,7 @@ android {
         variant.outputs.configureEach { output ->
             def flavorNames = variant.productFlavors.collect { it.name }.join('-')
             // 构建自定义文件名
-            def fileName = "TVBox_${variant.buildType.name}-${flavorNames}.apk"
+            def fileName = "tm_box_wolong_${variant.buildType.name}_${flavorNames}_${versionName}.apk"
             outputFileName = fileName
         }
     }
@@ -85,11 +85,11 @@ android {
         disable 'UnsafeOptInUsageError'
     }
 
-    applicationVariants.configureEach { variant ->
-        variant.outputs.configureEach {
-            outputFileName = "tm_box_wolong_${variant.buildType.name}_${versionName}.apk"
-        }
-    }
+//    applicationVariants.configureEach { variant ->
+//        variant.outputs.configureEach {
+//            outputFileName = "tm_box_wolong_${variant.buildType.name}_${versionName}.apk"
+//        }
+//    }
 }
 
 dependencies {
