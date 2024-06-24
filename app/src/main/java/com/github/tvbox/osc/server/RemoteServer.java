@@ -57,7 +57,8 @@ public class RemoteServer extends NanoHTTPD {
     private DataReceiver mDataReceiver;
     private ArrayList < RequestProcess > getRequestList = new ArrayList < > ();
     private ArrayList < RequestProcess > postRequestList = new ArrayList < > ();
-
+    private static final String PATTERN_ETH_STR = "^eth\\d+$";
+    private static final Pattern ETH_PATTERN = Pattern.compile(PATTERN_ETH_STR);
     public static String m3u8Content;
 
     public RemoteServer(int port, Context context) {
@@ -300,7 +301,7 @@ public class RemoteServer extends NanoHTTPD {
                 while (enumerationNi.hasMoreElements()) {
                     NetworkInterface networkInterface = enumerationNi.nextElement();
                     String interfaceName = networkInterface.getDisplayName();
-                    if (interfaceName.equals("eth0") || interfaceName.equals("wlan0")) {
+                    if (ETH_PATTERN.matcher(interfaceName).matches() || interfaceName.equals("wlan0")) {
                         Enumeration < InetAddress > enumIpAddr = networkInterface.getInetAddresses();
                         while (enumIpAddr.hasMoreElements()) {
                             InetAddress inetAddress = enumIpAddr.nextElement();

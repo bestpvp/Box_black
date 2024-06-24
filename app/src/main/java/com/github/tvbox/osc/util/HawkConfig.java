@@ -41,6 +41,11 @@ public class HawkConfig {
     public static final String VIDEO_PURIFY = "video_purify";
     public static final String IJK_CACHE_PLAY = "ijk_cache_play";
 
+    public static final String EXO_RENDERER = "exo_renderer";
+    public static final String EXO_RENDERER_MODE = "exo_renderer_mode";
+    public static final String VOD_PLAYER_PREFERRED = "vod_player_preferred";
+
+
     // Other Settings
     public static final String DOH_URL = "doh_url";         // DNS
     public static final String DEFAULT_PARSE = "parse_default";
@@ -59,6 +64,7 @@ public class HawkConfig {
 
     // Live Settings
     public static final String LIVE_CHANNEL = "last_live_channel_name";
+    public static final String LIVE_CHANNEL_GROUP = "last_live_channel_group_name";
     public static final String LIVE_CHANNEL_REVERSE = "live_channel_reverse";
     public static final String LIVE_CROSS_GROUP = "live_cross_group";
     public static final String LIVE_CONNECT_TIMEOUT = "live_connect_timeout";

@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId 'com.github.tvbox.wolong'
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 240613
         versionName "240613"
@@ -28,10 +28,42 @@ android {
         release {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             minifyEnabled true
+
+        }
+    }
+    flavorDimensions +=[ "abi","brand" ]
+    productFlavors {
+        armeabi {
+            dimension = "abi"
             ndk {
                 abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
             }
             signingConfig signingConfigs.debug
+        }
+        arm64 {
+            dimension = "abi"
+            ndk {
+                abiFilters 'arm64-v8a'
+            }
+        }
+
+        generic  {
+            //通用版本
+            dimension = "brand"
+        }
+
+        hisense {
+            //海信的
+            applicationId 'com.github.hisense.osc.tk'
+            dimension = "brand"
+        }
+    }
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
+            def flavorNames = variant.productFlavors.collect { it.name }.join('-')
+            // 构建自定义文件名
+            def fileName = "TVBox_${variant.buildType.name}-${flavorNames}.apk"
+            outputFileName = fileName
         }
     }
 
@@ -106,13 +138,14 @@ dependencies {
     implementation 'com.orhanobut:hawk:2.0.1'
     implementation 'net.sourceforge.streamsupport:android-retrofuture:1.7.4'
     implementation 'androidx.annotation:annotation:1.6.0'
-    implementation "androidx.media3:media3-exoplayer:1.1.1"
-    implementation "androidx.media3:media3-ui:1.1.1"
-    implementation "androidx.media3:media3-exoplayer-dash:1.1.1"
-    implementation "androidx.media3:media3-exoplayer-hls:1.1.1"
-    implementation "androidx.media3:media3-exoplayer-rtsp:1.1.1"
-    implementation "androidx.media3:media3-datasource-rtmp:1.1.1"
-    implementation 'androidx.media3:media3-common:1.1.1'
+    implementation "androidx.media3:media3-exoplayer:1.3.1"
+    implementation "androidx.media3:media3-ui:1.3.1"
+    implementation "androidx.media3:media3-exoplayer-dash:1.3.1"
+    implementation "androidx.media3:media3-exoplayer-hls:1.3.1"
+    implementation "androidx.media3:media3-exoplayer-rtsp:1.3.1"
+    implementation "androidx.media3:media3-datasource-rtmp:1.3.1"
+    implementation 'androidx.media3:media3-common:1.3.1'
+    implementation "com.github.anilbeesetti.nextlib:nextlib-media3ext:0.7.1"
 
     implementation "com.aliyun.sdk.android:AliyunPlayer:5.5.2.0-full"
     implementation 'com.alivc.conan:AlivcConan:0.9.5'

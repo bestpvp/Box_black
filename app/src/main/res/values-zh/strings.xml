@@ -97,6 +97,7 @@
     <string name="dia_theme">请选择主题</string>
     <string name="dia_confirm">确定全部删除 ?</string>
     <string name="dia_reset">确定重置将清除配置</string>
+    <string name="dia_media_setting_title">播放器设置</string>
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">备份成功!</string>
@@ -191,4 +192,38 @@
     <string name="sub_style">样式</string>
     <string name="sub_style_text">字幕</string>
 
+    <string-array name="media_title">
+        <item>通用</item>
+        <item>EXO</item>
+        <item>IJK</item>
+    </string-array>
+
+    <string-array name="media_content_General" >
+        <item>点播播放器首选</item>
+    </string-array>
+    <string-array name="media_content_IjkPlayer">
+        <item>解码模式</item>
+        <item>缓存</item>
+    </string-array>
+
+    <string-array name="media_content_ExoPlayer">
+        <item>渲染器</item>
+<!--        <item>渲染器模式</item>-->
+    </string-array>
+
+    <string-array name="media_content_ExoPlayer_renderer">
+        <item>默认</item>
+        <item>NextLib</item>
+    </string-array>
+
+    <string-array name="media_content_ExoPlayer_renderer_mode">
+        <item>首选核心渲染器</item>
+        <item>首选扩展渲染器</item>
+        <item>不允许使用扩展渲染器</item>
+    </string-array>
+
+    <string-array name="media_content_General_VodPlayerPreferred">
+        <item>首选配置地址</item>
+        <item>首选设置配置</item>
+    </string-array>
 </resources>

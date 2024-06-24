@@ -41,7 +41,7 @@
                     android:layout_marginEnd="@dimen/vs_12"
                     android:layout_marginRight="@dimen/vs_12"
                     android:layout_marginBottom="@dimen/vs_8"
-                    android:background="@color/color_theme" />
+                    android:background="?attr/color_theme" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -818,14 +818,14 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/vs_5"
                             android:layout_marginLeft="@dimen/vs_5"
+                            android:layout_marginEnd="@dimen/vs_5"
+                            android:layout_marginRight="@dimen/vs_5"
                             android:layout_weight="1"
                             android:orientation="horizontal">
                         <LinearLayout
                                 android:id="@+id/llVideoPurify"
                                 android:layout_width="@dimen/vs_0"
                                 android:layout_height="match_parent"
-                                android:layout_marginEnd="@dimen/vs_5"
-                                android:layout_marginRight="@dimen/vs_5"
                                 android:layout_weight="1"
                                 android:background="@drawable/shape_setting_model_focus"
                                 android:focusable="true"

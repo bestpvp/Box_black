@@ -97,6 +97,8 @@
     <string name="dia_theme">Select Theme</string>
     <string name="dia_confirm">Confirm to Clear All ?</string>
     <string name="dia_reset">Reset Clear Configuration</string>
+    <string name="dia_media_setting_title">Media Setting</string>
+
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">Backup Success</string>
@@ -203,5 +205,70 @@
         <item>https://dns.alidns.com/dns-query</item>
         <item>https://doh.360.cn/dns-query</item>
     </string-array>
+
+    <!-- 视频设置 相关数据 -->
+    <string-array name="media_title_tag">
+        <item>General</item>
+        <item>ExoPlayer</item>
+        <item>IjkPlayer</item>
+    </string-array>
+
+    <string-array name="media_title">
+        <item>General</item>
+        <item>EXO</item>
+        <item>IJK</item>
+    </string-array>
+
+    <!--    用于解释怎么处理数据  -->
+    <string-array name="media_content_tag_General">
+        <item>VodPlayerPreferred</item>
+    </string-array>
+
+    <string-array name="media_content_tag_ExoPlayer">
+        <item>ExoRenderer</item>
+<!--        <item>ExoRendererMode</item>-->
+    </string-array>
+
+    <string-array name="media_content_tag_IjkPlayer">
+        <item>IjkMediaCodecMode</item>
+        <item>IjkCache</item>
+    </string-array>
+
+    <!--    用于展示名称-->
+    <string-array name="media_content_General">
+        <item>VodPlayerPreferred</item>
+        <!--        用于强制使用设置中的配置 比如设置 首选设置配置 ,首选配置文件 优先单独设置的就不管-->
+    </string-array>
+
+
+    <string-array name="media_content_ExoPlayer">
+        <!--  渲染器选择  -->
+        <item>Renderer</item>
+<!--        &lt;!&ndash;首选 扩展渲染器 核心渲染器 关 &ndash;&gt;-->
+<!--        <item>RendererMode</item>-->
+    </string-array>
+
+    <string-array name="media_content_IjkPlayer">
+        <item>MediaCodecMode</item>
+        <item>Cache</item>
+    </string-array>
+
+    <string-array name="media_content_ExoPlayer_renderer">
+        <item>Default</item>
+        <item>NextLib</item>
+    </string-array>
+
+    <string-array name="media_content_ExoPlayer_renderer_mode">
+        <item>Prefer core renderer</item>
+        <item>Prefer extension renderer</item>
+        <item>extended renderers are not allowed</item>
+    </string-array>
+
+    <string-array name="media_content_General_VodPlayerPreferred">
+        <item>Prefer configuration address</item>
+        <item>Prefer setting configuration</item>
+    </string-array>
+
+    <!-- 结束 视频设置 相关配置 -->
 
 </resources>
