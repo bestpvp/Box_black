@@ -9,8 +9,8 @@ android {
         applicationId 'com.github.tvbox.wolong'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 240624
-        versionName "240624"
+        versionCode 240710
+        versionName "240710"
         multiDexEnabled true
         //设置room的Schema的位置
         javaCompileOptions {
