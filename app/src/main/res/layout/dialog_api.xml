@@ -39,7 +39,7 @@
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="@dimen/ts_24"
                 android:textStyle="bold"
-                tools:text="1111111111111111111111111111111111111111111111111111" />
+                tools:text="tvAddress" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,10 +60,12 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/headerTvAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/vs_20"
                             android:padding="5dp"
-                            android:text="本APP以及「时光机」均为免费开源项目，仅供测试，请勿付费购买！\n\n播放时若出现广告均为三方插入, 与本公众号无关，请勿上当!\n"
+                            android:text="headerTvAddress"
                             android:textSize="18mm" />
 
                     </LinearLayout>
@@ -81,6 +83,7 @@
                             android:id="@+id/input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/vs_20"
                             android:layout_weight="1"
                             android:background="@drawable/input_dialog_api_input"
                             android:hint="1. 请输入数据源地址"

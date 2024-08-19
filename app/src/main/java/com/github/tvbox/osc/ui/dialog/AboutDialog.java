@@ -38,8 +38,14 @@ public class AboutDialog extends BaseDialog {
         super(context);
         setContentView(R.layout.dialog_about);
 
-        TextView contentTextView = findViewById(R.id.tv_version);
-        contentTextView.setText(CustomUtil.getTitle());
+        TextView tv_title = findViewById(R.id.tv_title);
+        tv_title.setText(CustomUtil.getPrefix());
+
+        TextView tv_version = findViewById(R.id.tv_version);
+        tv_version.setText(CustomUtil.getTitle());
+
+        TextView tv_version_message = findViewById(R.id.tv_version_message);
+        tv_version_message.setText(CustomUtil.getAppMsg());
 
         String versionCode = String.valueOf(getVersionCode(context));
 

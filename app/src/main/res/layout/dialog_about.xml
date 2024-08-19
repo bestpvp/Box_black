@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="卧龙TV"
+            android:layout_marginTop="@dimen/vs_20"
+            android:text="tv_title"
             android:textColor="@color/color_FFFFFF"
             android:textSize="@dimen/ts_24" />
 
@@ -34,23 +35,27 @@
 
 
     <TextView
+        android:id="@+id/tv_version_message"
         android:layout_width="@dimen/vs_600"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_20"
         android:lineSpacingExtra="@dimen/ts_50"
         android:lineSpacingMultiplier="0"
         android:shadowColor="@color/color_000000_60"
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="3"
-        android:text="\n本软件为免费开源项目, 以学习交流为目的, 所有内容来自网络公开数据, 不涉及制作、上传及储存内容, 如有广告均为三方提供, 请勿相信!\n"
+        android:text="tv_version_message"
         android:textColor="@color/color_FFFFFF"
-        android:textSize="@dimen/ts_24" />
+        android:textSize="@dimen/ts_24"
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/tv_version"
         android:layout_width="@dimen/vs_600"
         android:layout_height="wrap_content"
-        android:text="关注「插兜的干货仓库」"
+        android:layout_marginTop="@dimen/vs_20"
+        android:text="tv_version"
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/ts_24"
         android:gravity="center" />

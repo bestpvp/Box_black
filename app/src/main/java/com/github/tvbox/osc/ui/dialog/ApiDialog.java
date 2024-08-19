@@ -16,6 +16,7 @@ import com.github.tvbox.osc.server.ControlManager;
 import com.github.tvbox.osc.ui.activity.HomeActivity;
 import com.github.tvbox.osc.ui.adapter.ApiHistoryDialogAdapter;
 import com.github.tvbox.osc.ui.tv.QRCodeGen;
+import com.github.tvbox.osc.util.CustomUtil;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.hjq.permissions.OnPermissionCallback;
@@ -41,6 +42,7 @@ public class ApiDialog extends BaseDialog {
     private final ImageView ivQRCode;
     private final TextView tvAddress;
     private final EditText inputApi;
+    private final TextView headerTvAddress;
 //    private final EditText inputLive;
 //    private final EditText inputEPG;
 
@@ -63,6 +65,8 @@ public class ApiDialog extends BaseDialog {
         setCanceledOnTouchOutside(true);
         ivQRCode = findViewById(R.id.ivQRCode);
         tvAddress = findViewById(R.id.tvAddress);
+        headerTvAddress = findViewById(R.id.headerTvAddress);
+        headerTvAddress.setText(CustomUtil.getAppMsg());
         inputApi = findViewById(R.id.input);
         inputApi.setText(Hawk.get(HawkConfig.API_URL, ""));
 

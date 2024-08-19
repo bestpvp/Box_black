@@ -72,6 +72,8 @@ import com.github.tvbox.osc.util.LOG;
 import com.github.tvbox.osc.util.LocalIPAddress;
 import com.github.tvbox.osc.viewmodel.SourceViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.orhanobut.hawk.Hawk;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 import com.owen.tvrecyclerview.widget.V7GridLayoutManager;
@@ -153,15 +155,13 @@ public class HomeActivity extends BaseActivity {
             Bundle bundle = intent.getExtras();
             useCacheConfig = bundle.getBoolean("useCache", false);
         }
-        initData();
-        CustomUtil.initCache();
+        initLoadConfig();
+//        initData();
         showDialog(this);
     }
 
     private void showDialog(Context context) {
-        String ip = LocalIPAddress.getMacAddress(context);
-        System.out.println("当前IP: "+ip);
-        if (!Hawk.get("welcome_dialog", false)) {
+        if (!Hawk.get("welcome_dialog", false) && !CustomUtil.getAppMsg().isEmpty()) {
             new AlertDialog.Builder(context)
                     .setTitle(CustomUtil.getTitle())
                     .setMessage(CustomUtil.getAppMsg())
@@ -445,7 +445,7 @@ public class HomeActivity extends BaseActivity {
             }
             if (Hawk.get(HawkConfig.HOME_DEFAULT_SHOW, false)) {
                 jumpActivity(LivePlayActivity.class);
-            }         
+            }
             return;
         }
         showLoading();
@@ -895,6 +895,33 @@ public class HomeActivity extends BaseActivity {
         bundle.putBoolean("useCache", true);
         intent.putExtras(bundle);
         HomeActivity.this.startActivity(intent);
+    }
+
+    private void initLoadConfig(){
+        CustomUtil.initCache(new CustomUtil.Callback() {
+            @Override
+            public void onResult(String data) {
+                if (!data.isEmpty()) {
+                    JsonObject object = JsonParser.parseString(data).getAsJsonObject();
+                    Hawk.put("force_refresh", object.get("force_refresh").getAsInt());
+                    Hawk.put("source", object.get("source").getAsString());
+                    Hawk.put("app_message", object.get("app_message").getAsString());
+                    Hawk.put("filter", object.getAsJsonArray("filter").toString());
+                    Hawk.put("prefix_wolong", object.get("prefix_wolong").getAsString());
+                    Hawk.put("title", object.get("title").getAsString());
+                    Hawk.put("jxUrl", object.get("jxUrl").getAsString());
+                    Hawk.put("remove_ad", true);
+                    System.out.println("source: " + Hawk.get("source"));
+                    System.out.println("title: " + Hawk.get("title"));
+                    System.out.println("remove_ad: " + Hawk.get("remove_ad"));
+                    System.out.println("app_message: " + Hawk.get("app_message"));
+                    System.out.println("initCache: 保存缓存成功");
+                    initData();
+                } else {
+                    System.out.println("initCache: 保存缓存失败: " + data);
+                }
+            }
+        });
     }
 
 //    public void onClick(View v) {
