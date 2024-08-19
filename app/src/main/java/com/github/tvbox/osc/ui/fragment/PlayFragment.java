@@ -739,6 +739,7 @@ public class PlayFragment extends BaseLazyFragment {
     }
 
     void startPlayUrl(String url, HashMap<String, String> headers) {
+        System.out.println("卧龙TV: PlayFragment startPlayUrl -> "+url);
         if (!isAdded()) return;
         final String finalUrl = url;
         requireActivity().runOnUiThread(new Runnable() {

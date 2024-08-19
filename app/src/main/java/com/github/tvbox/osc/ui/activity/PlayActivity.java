@@ -747,6 +747,7 @@ public class PlayActivity extends BaseActivity {
 
     void startPlayUrl(String url, HashMap<String, String> headers) {
         final String finalUrl = url;
+        System.out.println("卧龙TV: PlayActivity startPlayUrl -> "+finalUrl);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

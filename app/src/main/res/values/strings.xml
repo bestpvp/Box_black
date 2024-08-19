@@ -98,6 +98,7 @@
     <string name="dia_confirm">Confirm to Clear All ?</string>
     <string name="dia_reset">Reset Clear Configuration</string>
     <string name="dia_media_setting_title">Media Setting</string>
+    <string name="jx_token">JxToken</string>
 
 
     // Settings Backup Restore Page //

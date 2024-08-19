@@ -1,10 +1,15 @@
 package com.github.tvbox.osc.ui.fragment;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +42,7 @@ import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.HistoryHelper;
 import com.github.tvbox.osc.util.OkGoHelper;
 import com.github.tvbox.osc.util.PlayerHelper;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.Progress;
@@ -86,6 +92,8 @@ public class ModelSettingFragment extends BaseLazyFragment {
     private TextView tvSearchView;
     private TextView tvDns;
     private TextView tvFastSearchText;
+
+    private TextView jxtokenText;
 
     public static ModelSettingFragment newInstance() {
         return new ModelSettingFragment().setArguments();
@@ -141,6 +149,8 @@ public class ModelSettingFragment extends BaseLazyFragment {
         tvDns.setText(OkGoHelper.dnsHttpsList.get(Hawk.get(HawkConfig.DOH_URL, 0)));
         tvHomeDefaultShow = findViewById(R.id.tvHomeDefaultShow);
         tvHomeDefaultShow.setText(Hawk.get(HawkConfig.HOME_DEFAULT_SHOW, false) ? "开启" : "关闭");
+        jxtokenText = findViewById(R.id.jxtokenText);
+        jxtokenText.setText(Hawk.get("jx_token", ""));
 
         //takagen99 : Set HomeApi as default
         findViewById(R.id.llHomeApi).requestFocus();
@@ -500,6 +510,33 @@ public class ModelSettingFragment extends BaseLazyFragment {
             FastClickCheckUtil.check(v);
             Hawk.put(HawkConfig.VIDEO_PURIFY, !Hawk.get(HawkConfig.VIDEO_PURIFY, true));
             tvVideoPurifyText.setText(Hawk.get(HawkConfig.VIDEO_PURIFY, true) ? "开启" : "关闭");
+        });
+
+        jxtokenText.setOnClickListener(v -> {
+            FastClickCheckUtil.check(v);
+            // 创建 EditText
+            final EditText input = new EditText(v.getContext());
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+            // 创建 AlertDialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setTitle("输入 解析Token")
+                    .setView(input)
+                    .setPositiveButton("保存", (dialog, which) -> {
+                        String newText = input.getText().toString();
+                        if (!TextUtils.isEmpty(newText)) {
+                            Hawk.put("jx_token", newText);
+                            jxtokenText.setText(newText);
+                            System.out.println(Hawk.get("jx_token", ""));
+                        } else {
+                            System.out.println("请输入 解析token");
+                        }
+                    })
+                    .setNegativeButton("取消", (dialog, which) -> dialog.cancel());
+
+            // 显示对话框
+            builder.show();
+
         });
 
         // 3. SYSTEM Configuration -------------------------------------------------------------- //

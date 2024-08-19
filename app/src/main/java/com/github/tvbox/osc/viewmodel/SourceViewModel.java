@@ -733,12 +733,19 @@ public class SourceViewModel extends ViewModel {
                 if (!result.has("flag"))
                     result.put("flag", playFlag);
             }
-            System.out.println("getPlay -> "+result);
-            String finalUrl = result.getString("url");
-            System.out.println("getPlay -> finalUrl: "+finalUrl);
-            okhttp3.Response response = OkGo.<String>get("https://www.lintech.work/api/m3u8/parse").params("url", url).params("token", "test").tag("jx").execute();
-            String jxResult = response.body().string();
-            System.out.println(jxResult);
+            System.out.println("SourceViewModel getPlay -> url: "+url);
+            System.out.println("SourceViewModel getPlay -> result: "+result);
+//            okhttp3.Response response = OkGo.<String>get("https://www.lintech.work/api/m3u8/parse").params("url", finalUrl).params("token", "mau39c240831").tag("jx").execute();
+//            String jxResult = response.body().string();
+//            // Parse the string as JSON
+//            JSONObject jsonObject = new JSONObject(jxResult);
+//            // Get the 'url' field from the JSON object
+//            String jx_url = jsonObject.getJSONObject("data").getString("jx_url");
+//            System.out.println(jx_url);
+//            if (!jx_url.isEmpty()) {
+//                result.put("url", jx_url);
+//            }
+//            System.out.println(result);
             return result;
         };
         threadPoolGetPlay.execute(() -> {

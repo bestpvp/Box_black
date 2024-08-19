@@ -13,50 +13,6 @@ import com.google.gson.JsonParser;
 
 public class CustomUtil {
 
-//    public static void initCache() {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    String url = "https://gitee.com/bestpvp/config/raw/master/config/unify.json";
-//                    if (!Hawk.get("source", "").isEmpty()) {
-//                        System.out.println("initCache: 读取缓存成功");
-//                    } else {
-//                        System.out.println("initCache: 请求接口: " + url);
-//                        String data = OkHttp.string(url);
-//                        if (!data.isEmpty()) {
-//                            JsonObject object = JsonParser.parseString(data).getAsJsonObject();
-//                            Hawk.put("force_refresh", object.get("force_refresh").getAsInt());
-//                            Hawk.put("source", object.get("source").getAsString());
-//                            Hawk.put("app_show_dialog", object.get("app_show_dialog").getAsBoolean());
-//                            Hawk.put("jar_show_dialog", object.get("jar_show_dialog").getAsBoolean());
-//                            Hawk.put("app_require_password", object.get("app_require_password").getAsBoolean());
-//                            Hawk.put("jar_require_password", object.get("jar_require_password").getAsBoolean());
-//                            Hawk.put("app_password", object.get("app_password").getAsString());
-//                            Hawk.put("jar_password", object.get("jar_password").getAsString());
-//                            Hawk.put("universal_password", object.get("universal_password").getAsString());
-//                            Hawk.put("app_message", object.get("app_message").getAsString());
-//                            Hawk.put("jar_message", object.get("jar_message").getAsString());
-//                            Hawk.put("filter", object.getAsJsonArray("filter").toString());
-//                            Hawk.put("prefix_wolong", object.get("prefix_wolong").getAsString());
-//                            Hawk.put("title", object.get("title").getAsString());
-//                            Hawk.put("picture", object.get("picture").getAsString());
-//                            Hawk.put("link", object.get("link").getAsString());
-//                            Hawk.put("jxUrl", object.get("jxUrl").getAsString());
-//                            System.out.println("initCache: 保存缓存成功");
-//                        } else {
-//                            System.out.println("initCache: 保存缓存失败: " + data);
-//                        }
-//                    }
-////                    printAllCache();
-//                    System.out.println("缓存数量: "+Hawk.count());
-//                } catch (Exception e) {
-//                    System.out.println("initCache: 保存缓存异常");
-//                }
-//            }
-//        }).start();
-//    }
-
     public static void clearCache(){
         Hawk.deleteAll();
         System.out.println("clearCache: 清除缓存成功");

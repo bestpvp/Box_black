@@ -150,7 +150,7 @@ public class AbsJson implements Serializable {
                     } else {
                         urlInfo.flag = StringUtils.isEmpty(playFlags[i]) ? prefix + i : prefix + playFlags[i];
                     }
-                    urlInfo.urls = prefix + playUrls[i];
+                    urlInfo.urls = playUrls[i];
                     infoList.add(urlInfo);
                 }
                 urlBean.infoList = infoList;
@@ -160,7 +160,7 @@ public class AbsJson implements Serializable {
             if (vod_content != null) {
                 des = prefix + vod_content;
             } else {
-                des = prefix;
+                des = prefix + " 暂无介绍";
             }
 //            video.des = CustomUtil.filterString(des);
             video.des = des;
