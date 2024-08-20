@@ -170,4 +170,5 @@ dependencies {
             exclude group: 'xpp3', module: 'xpp3'
         }
     }
+    implementation 'com.alibaba:fastjson:1.2.75'
 }

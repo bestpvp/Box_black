@@ -75,6 +75,7 @@ import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.FileUtils;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.HawkUtils;
+import com.github.tvbox.osc.util.Jx;
 import com.github.tvbox.osc.util.LOG;
 import com.github.tvbox.osc.util.M3U8;
 import com.github.tvbox.osc.util.MD5;
@@ -622,6 +623,11 @@ public class PlayFragment extends BaseLazyFragment {
 
     void playUrl(String url, HashMap<String, String> headers) {
         System.out.println("卧龙TV: PlayFragment playUrl -> "+url);
+        if (url.isEmpty()){
+            Toast.makeText(mContext, "解析url失败: 手动切换线路！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (!Hawk.get(HawkConfig.VIDEO_PURIFY, true)) {
             startPlayUrl(url, headers);
             return;
@@ -741,70 +747,78 @@ public class PlayFragment extends BaseLazyFragment {
     void startPlayUrl(String url, HashMap<String, String> headers) {
         System.out.println("卧龙TV: PlayFragment startPlayUrl -> "+url);
         if (!isAdded()) return;
-        final String finalUrl = url;
-        requireActivity().runOnUiThread(new Runnable() {
+        String finalUrl = url;
+        System.out.println("jx_token: "+Hawk.get("jx_token", ""));
+        Jx.fetchUrl(requireContext(), finalUrl, new Jx.Callback() {
             @Override
-            public void run() {
-                stopParse();
-                if (mVideoView != null) {
-                    mVideoView.release();
-                    if (finalUrl != null) {
-                        String url = finalUrl;
-                        videoURL = url;                        
-                        try {
-                            int playerType = mVodPlayerCfg.getInt("pl");
-                            // takagen99: Check for External Player
-                            extPlay = false;
-                            if (playerType >= 10) {
-                                VodInfo.VodSeries vs = mVodInfo.seriesMap.get(mVodInfo.playFlag).get(mVodInfo.playIndex);
-                                String playTitle = mVodInfo.name + " : " + vs.name;
-                                setTip("调用外部播放器" + PlayerHelper.getPlayerName(playerType) + "进行播放", true, false);
-                                boolean callResult = false;
-                                switch (playerType) {
-                                    case 10: {
-                                        extPlay = true;
-                                        callResult = MXPlayer.run(requireActivity(), url, playTitle, playSubtitle, headers);
-                                        break;
+            public void onResult(String finalUrl) {
+                // 更新 finalUrl
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stopParse();
+                        if (mVideoView != null) {
+                            mVideoView.release();
+                            if (finalUrl != null) {
+                                String url = finalUrl;
+                                videoURL = url;
+                                try {
+                                    int playerType = mVodPlayerCfg.getInt("pl");
+                                    // takagen99: Check for External Player
+                                    extPlay = false;
+                                    if (playerType >= 10) {
+                                        VodInfo.VodSeries vs = mVodInfo.seriesMap.get(mVodInfo.playFlag).get(mVodInfo.playIndex);
+                                        String playTitle = mVodInfo.name + " : " + vs.name;
+                                        setTip("调用外部播放器" + PlayerHelper.getPlayerName(playerType) + "进行播放", true, false);
+                                        boolean callResult = false;
+                                        switch (playerType) {
+                                            case 10: {
+                                                extPlay = true;
+                                                callResult = MXPlayer.run(requireActivity(), url, playTitle, playSubtitle, headers);
+                                                break;
+                                            }
+                                            case 11: {
+                                                extPlay = true;
+                                                callResult = ReexPlayer.run(requireActivity(), url, playTitle, playSubtitle, headers);
+                                                break;
+                                            }
+                                            case 12: {
+                                                extPlay = true;
+                                                callResult = Kodi.run(requireActivity(), url, playTitle, playSubtitle, headers);
+                                                break;
+                                            }
+                                        }
+                                        setTip("调用外部播放器" + PlayerHelper.getPlayerName(playerType) + (callResult ? "成功" : "失败"), callResult, !callResult);
+                                        return;
                                     }
-                                    case 11: {
-                                        extPlay = true;
-                                        callResult = ReexPlayer.run(requireActivity(), url, playTitle, playSubtitle, headers);
-                                        break;
-                                    }
-                                    case 12: {
-                                        extPlay = true;
-                                        callResult = Kodi.run(requireActivity(), url, playTitle, playSubtitle, headers);
-                                        break;
-                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                                setTip("调用外部播放器" + PlayerHelper.getPlayerName(playerType) + (callResult ? "成功" : "失败"), callResult, !callResult);
-                                return;
+                                hideTip();
+                                if (url.startsWith("data:application/dash+xml;base64,")) {
+                                    PlayerHelper.updateCfg(mVideoView, mVodPlayerCfg, 2);
+                                    App.getInstance().setDashData(url.split("base64,")[1]);
+                                    url = ControlManager.get().getAddress(true) + "dash/proxy.mpd";
+                                } else if (url.contains(".mpd") || url.contains("type=mpd")) {
+                                    PlayerHelper.updateCfg(mVideoView, mVodPlayerCfg, 2);
+                                } else {
+                                    PlayerHelper.updateCfg(mVideoView, mVodPlayerCfg);
+                                }
+                                mVideoView.setProgressKey(progressKey);
+                                if (headers != null) {
+                                    mVideoView.setUrl(url, headers);
+                                } else {
+                                    mVideoView.setUrl(url);
+                                }
+                                mVideoView.start();
+                                mController.resetSpeed();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                        hideTip();
-                        if (url.startsWith("data:application/dash+xml;base64,")) {
-                            PlayerHelper.updateCfg(mVideoView, mVodPlayerCfg, 2);
-                            App.getInstance().setDashData(url.split("base64,")[1]);
-                            url = ControlManager.get().getAddress(true) + "dash/proxy.mpd";
-                        } else if (url.contains(".mpd") || url.contains("type=mpd")) {
-                            PlayerHelper.updateCfg(mVideoView, mVodPlayerCfg, 2);
-                        } else {
-                            PlayerHelper.updateCfg(mVideoView, mVodPlayerCfg);
-                        }
-                        mVideoView.setProgressKey(progressKey);
-                        if (headers != null) {
-                            mVideoView.setUrl(url, headers);
-                        } else {
-                            mVideoView.setUrl(url);
-                        }
-                        mVideoView.start();
-                        mController.resetSpeed();
                     }
-                }
+                });
             }
         });
+
     }
 
     private void initSubtitleView() {

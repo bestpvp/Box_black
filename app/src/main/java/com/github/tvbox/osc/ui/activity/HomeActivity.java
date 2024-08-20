@@ -874,14 +874,6 @@ public class HomeActivity extends BaseActivity {
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
-//                    if (homeSourceKey != null && !homeSourceKey.equals(Hawk.get(HawkConfig.HOME_API, ""))) {
-//                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putBoolean("useCache", true);
-//                        intent.putExtras(bundle);
-//                        HomeActivity.this.startActivity(intent);
-//                    }
                 }
             });
             dialog.show();
@@ -915,6 +907,7 @@ public class HomeActivity extends BaseActivity {
                     System.out.println("title: " + Hawk.get("title"));
                     System.out.println("remove_ad: " + Hawk.get("remove_ad"));
                     System.out.println("app_message: " + Hawk.get("app_message"));
+                    System.out.println("jx_token: " + Hawk.get("jx_token"));
                     System.out.println("initCache: 保存缓存成功");
                     initData();
                 } else {
