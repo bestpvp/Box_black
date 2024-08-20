@@ -8,7 +8,6 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import com.github.catvod.net.OkHttp;
-import com.github.tvbox.osc.ui.fragment.PlayFragment;
 import com.orhanobut.hawk.Hawk;
 
 import java.net.URLEncoder;
