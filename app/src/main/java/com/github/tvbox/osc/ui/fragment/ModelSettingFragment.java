@@ -516,20 +516,22 @@ public class ModelSettingFragment extends BaseLazyFragment {
             FastClickCheckUtil.check(v);
             // 创建 EditText
             final EditText input = new EditText(v.getContext());
-            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setHint("关注公众号，免费获取");
 
             // 创建 AlertDialog
             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-            builder.setTitle("输入 解析Token")
+            builder.setTitle("JxToken")
                     .setView(input)
                     .setPositiveButton("保存", (dialog, which) -> {
                         String newText = input.getText().toString();
                         if (!TextUtils.isEmpty(newText)) {
                             Hawk.put("jx_token", newText);
                             jxtokenText.setText(newText);
-                            System.out.println(Hawk.get("jx_token", ""));
+                            System.out.println("JxToken 保存成功 -> "+Hawk.get("jx_token"));
+                            Toast.makeText(v.getContext(), "JxToken 保存成功", Toast.LENGTH_SHORT).show();
                         } else {
-                            System.out.println("请输入 解析token");
+                            System.out.println("JxToken 保存失败 -> 空");
+                            Toast.makeText(v.getContext(), "JxToken 为空", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .setNegativeButton("取消", (dialog, which) -> dialog.cancel());
