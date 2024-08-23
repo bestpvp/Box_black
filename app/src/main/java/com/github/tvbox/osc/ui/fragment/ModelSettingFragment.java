@@ -175,6 +175,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
                     public void onchange(String api) {
                         Hawk.put(HawkConfig.API_URL, api);
                         tvApi.setText(api);
+                        System.out.println("数据源保存 -> "+api);
                     }
                 });
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {

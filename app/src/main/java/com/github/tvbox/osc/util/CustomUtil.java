@@ -56,7 +56,14 @@ public class CustomUtil {
     }
 
     public static String getSource() {
-        return Hawk.get("source", "");
+        String setting_API = Hawk.get("api_url", "");
+        if (setting_API.isEmpty()){
+            System.out.println("getSource: 默认 -> "+Hawk.get("source", ""));
+            return Hawk.get("source", "");
+        } else {
+            System.out.println("getSource: 自定义 -> "+setting_API);
+            return setting_API;
+        }
     }
 
     public static int getForceRefresh() {
