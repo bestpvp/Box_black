@@ -68,7 +68,41 @@ public class M3U8 {
             }
         }
         if (preUrlMap.size() <= 1) return null;
-        if (preUrlMap.size() > 5) return null;//too many different url, can not identify ads url
+        if (preUrlMap.size() > 5) {
+            //尝试判断域名，取同域名最多的链接，其它域名当作广告去除
+            preUrlMap.clear();
+            for (String line : lines) {
+                if (line.length() == 0 || line.charAt(0) == '#') {
+                    continue;
+                }
+                if (!line.startsWith("http://") && !line.startsWith("https://")) {
+                    return null;
+                }
+                int ifirst = line.indexOf('/', 9);//skip http:// or https://
+                if (ifirst <= 0) {
+                    continue;
+                }
+                String preUrl = line.substring(0, ifirst);
+                Integer cnt = preUrlMap.get(preUrl);
+                if (cnt != null) {
+                    preUrlMap.put(preUrl, cnt + 1);
+                } else {
+                    preUrlMap.put(preUrl, 1);
+                }
+            }
+            if (preUrlMap.size() <= 1) return null;
+            int maxTimes = 0;
+            int totalTimes = 0;
+            for (Map.Entry<String, Integer> entry : preUrlMap.entrySet()) {
+                if (entry.getValue() > maxTimes) {
+                    maxTimes = entry.getValue();
+                }
+                totalTimes += entry.getValue();
+            }
+            if (maxTimes*1.0 / (totalTimes*1.0) < 0.8) {
+                return null; //视频非广告片断占比不够大
+            }
+        }
         int maxTimes = 0;
         String maxTimesPreUrl = "";
         for (Map.Entry<String, Integer> entry : preUrlMap.entrySet()) {
