@@ -19,9 +19,11 @@ import com.github.tvbox.osc.bean.Movie;
 import com.github.tvbox.osc.bean.MovieSort;
 import com.github.tvbox.osc.bean.SourceBean;
 import com.github.tvbox.osc.event.RefreshEvent;
+import com.github.tvbox.osc.util.CustomUtil;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.LOG;
+import com.github.tvbox.osc.util.ToastHelper;
 import com.github.tvbox.osc.util.thunder.Thunder;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -703,6 +705,7 @@ public class SourceViewModel extends ViewModel {
     public ExecutorService threadPoolGetPlay = null;
 
     public void getPlay(String sourceKey, String playFlag, String progressKey, String url, String subtitleKey) {
+        System.out.println("SourceViewModel getPlay -> playFlag: "+playFlag);
         if (threadPoolGetPlay != null) threadPoolGetPlay.shutdownNow();
         threadPoolGetPlay = Executors.newFixedThreadPool(2);
         Callable<JSONObject> callable = () -> {
@@ -735,17 +738,7 @@ public class SourceViewModel extends ViewModel {
             }
             System.out.println("SourceViewModel getPlay -> url: "+url);
             System.out.println("SourceViewModel getPlay -> result: "+result);
-//            okhttp3.Response response = OkGo.<String>get("https://www.lintech.work/api/m3u8/parse").params("url", finalUrl).params("token", "mau39c240831").tag("jx").execute();
-//            String jxResult = response.body().string();
-//            // Parse the string as JSON
-//            JSONObject jsonObject = new JSONObject(jxResult);
-//            // Get the 'url' field from the JSON object
-//            String jx_url = jsonObject.getJSONObject("data").getString("jx_url");
-//            System.out.println(jx_url);
-//            if (!jx_url.isEmpty()) {
-//                result.put("url", jx_url);
-//            }
-//            System.out.println(result);
+            ToastHelper.showToast(App.getInstance(), CustomUtil.getPrefix()+" 已切换至 " + playFlag);
             return result;
         };
         threadPoolGetPlay.execute(() -> {

@@ -49,8 +49,8 @@
     <string name="det_desc">简介</string>
 
     // Settings Menu Page //
-    <string name="mn_config">关注「插兜的干货仓库」</string>
-    <string name="mn_home">数据源</string>
+    <string name="mn_config">配置数据源</string>
+    <string name="mn_home">选择线路</string>
     <string name="mn_home_show">数据源显示</string>
     <string name="mn_home_type">推荐</string>
     <string name="mn_icon">按钮位置</string>
@@ -78,7 +78,7 @@
     <string name="mn_fastsearch">聚搜</string>
 
     // Settings Dialog Pop-Up //
-    <string name="dia_source">请选择数据源</string>
+    <string name="dia_source">请选择线路</string>
     <string name="dia_hm_type">请选择列表数据</string>
     <string name="dia_hm_icon">首页按钮位置</string>
     <string name="dia_history">历史条数保留</string>
@@ -135,7 +135,7 @@
     <string name="act_search_txt">请输入要搜索的内容</string>
     <string name="act_settings">设置</string>
     <string name="act_home">首页</string>
-    <string name="act_player">播放器</string>
+    <string name="act_player">播放</string>
     <string name="act_system">系统</string>
 
     // Search Page //

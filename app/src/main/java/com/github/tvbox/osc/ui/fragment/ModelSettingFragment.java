@@ -37,6 +37,8 @@ import com.github.tvbox.osc.ui.dialog.MediaSettingDialog;
 import com.github.tvbox.osc.ui.dialog.ResetDialog;
 import com.github.tvbox.osc.ui.dialog.SelectDialog;
 import com.github.tvbox.osc.ui.dialog.XWalkInitDialog;
+import com.github.tvbox.osc.ui.tv.widget.CustomEditText;
+import com.github.tvbox.osc.util.CustomUtil;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.HistoryHelper;
@@ -94,6 +96,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
     private TextView tvFastSearchText;
 
     private TextView jxtokenText;
+    private TextView mn_configText;
 
     public static ModelSettingFragment newInstance() {
         return new ModelSettingFragment().setArguments();
@@ -151,6 +154,8 @@ public class ModelSettingFragment extends BaseLazyFragment {
         tvHomeDefaultShow.setText(Hawk.get(HawkConfig.HOME_DEFAULT_SHOW, false) ? "开启" : "关闭");
         jxtokenText = findViewById(R.id.jxtokenText);
         jxtokenText.setText(Hawk.get("jx_token", ""));
+        mn_configText = findViewById(R.id.mn_config);
+        mn_configText.setText(CustomUtil.getTitle());
 
         //takagen99 : Set HomeApi as default
         findViewById(R.id.llHomeApi).requestFocus();
@@ -656,41 +661,41 @@ public class ModelSettingFragment extends BaseLazyFragment {
             }
         });
         // Load Wallpaper from URL -------------------------------------
-        findViewById(R.id.llWp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FastClickCheckUtil.check(v);
-                if (!ApiConfig.get().wallpaper.isEmpty())
-                    Toast.makeText(mContext, getString(R.string.mn_wall_load), Toast.LENGTH_SHORT).show();
-                OkGo.<File>get(ApiConfig.get().wallpaper).execute(new FileCallback(requireActivity().getFilesDir().getAbsolutePath(), "wp") {
-                    @Override
-                    public void onSuccess(Response<File> response) {
-                        ((BaseActivity) requireActivity()).changeWallpaper(true);
-                    }
-
-                    @Override
-                    public void onError(Response<File> response) {
-                        super.onError(response);
-                    }
-
-                    @Override
-                    public void downloadProgress(Progress progress) {
-                        super.downloadProgress(progress);
-                    }
-                });
-            }
-        });
+//        findViewById(R.id.llWp).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FastClickCheckUtil.check(v);
+//                if (!ApiConfig.get().wallpaper.isEmpty())
+//                    Toast.makeText(mContext, getString(R.string.mn_wall_load), Toast.LENGTH_SHORT).show();
+//                OkGo.<File>get(ApiConfig.get().wallpaper).execute(new FileCallback(requireActivity().getFilesDir().getAbsolutePath(), "wp") {
+//                    @Override
+//                    public void onSuccess(Response<File> response) {
+//                        ((BaseActivity) requireActivity()).changeWallpaper(true);
+//                    }
+//
+//                    @Override
+//                    public void onError(Response<File> response) {
+//                        super.onError(response);
+//                    }
+//
+//                    @Override
+//                    public void downloadProgress(Progress progress) {
+//                        super.downloadProgress(progress);
+//                    }
+//                });
+//            }
+//        });
         // Restore Default Wallpaper from system -------------------------
-        findViewById(R.id.llWpRecovery).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FastClickCheckUtil.check(v);
-                File wp = new File(requireActivity().getFilesDir().getAbsolutePath() + "/wp");
-                if (wp.exists())
-                    wp.delete();
-                ((BaseActivity) requireActivity()).changeWallpaper(true);
-            }
-        });
+//        findViewById(R.id.llWpRecovery).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FastClickCheckUtil.check(v);
+//                File wp = new File(requireActivity().getFilesDir().getAbsolutePath() + "/wp");
+//                if (wp.exists())
+//                    wp.delete();
+//                ((BaseActivity) requireActivity()).changeWallpaper(true);
+//            }
+//        });
         // Select Search Display Results ( Text or Picture ) -------------
         findViewById(R.id.llSearchView).setOnClickListener(new View.OnClickListener() {
             @Override

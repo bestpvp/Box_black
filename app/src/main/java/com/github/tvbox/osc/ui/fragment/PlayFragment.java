@@ -71,6 +71,7 @@ import com.github.tvbox.osc.ui.dialog.SearchSubtitleDialog;
 import com.github.tvbox.osc.ui.dialog.SelectDialog;
 import com.github.tvbox.osc.ui.dialog.SubtitleDialog;
 import com.github.tvbox.osc.util.AdBlocker;
+import com.github.tvbox.osc.util.CustomUtil;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.FileUtils;
 import com.github.tvbox.osc.util.HawkConfig;
@@ -624,7 +625,7 @@ public class PlayFragment extends BaseLazyFragment {
     void playUrl(String url, HashMap<String, String> headers) {
         System.out.println("卧龙TV: PlayFragment playUrl -> "+url);
         if (url.isEmpty()){
-            Toast.makeText(mContext, "解析url失败: 手动切换线路！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, CustomUtil.getPrefix()+" URL解析失败: 手动切换线路和集数！", Toast.LENGTH_SHORT).show();
             return;
         }
 

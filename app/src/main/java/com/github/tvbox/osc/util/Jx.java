@@ -64,7 +64,7 @@ public class Jx {
     public static void fetchUrl(Context context, String initialUrl, Callback callback) {
         System.out.println("解析开关: "+Hawk.get("remove_ad"));
         if (Hawk.get("remove_ad")) {
-            if (initialUrl.contains(".m3u8") && !initialUrl.contains("www.lintech.work") && !initialUrl.contains("127.0.0.1")) {
+            if (initialUrl.contains(".m3u8") && !initialUrl.contains("www.lintech.work") && !initialUrl.contains("127.0.0.1") && !initialUrl.contains("0.0.0.0")) {
                 System.out.println("时光机开始解析: "+initialUrl);
                 Thread thread = new Thread(new Runnable() {
                     @Override

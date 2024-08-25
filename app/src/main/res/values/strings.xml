@@ -50,7 +50,7 @@
 
     // Settings Menu Page //
     <string name="mn_config">Configuration Address</string>
-    <string name="mn_home">Source</string>
+    <string name="mn_home">Select Source</string>
     <string name="mn_home_show">Show Source</string>
     <string name="mn_home_type">Type</string>
     <string name="mn_icon">Button</string>
