@@ -302,3 +302,7 @@
 -dontwarn org.joda.time.format.ISODateTimeFormat
 -dontwarn org.kxml2.io.KXmlParser
 -dontwarn org.xmlpull.mxp1.MXParser
+
+-keep class com.alibaba.fastjson.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
