@@ -72,7 +72,7 @@
     <string name="mn_locale">Language</string>
     <string name="mn_theme">Theme</string>
     <string name="mn_about">About</string>
-    <string name="mn_purify">Skip Ad</string>
+    <string name="mn_purify">Time Machine Ad Analysis Service</string>
     <string name="mn_ijk_cache_play">IJK Cache</string>
     <string name="mn_reset">resetApp</string>
     <string name="mn_fastsearch">FastSearch</string>
