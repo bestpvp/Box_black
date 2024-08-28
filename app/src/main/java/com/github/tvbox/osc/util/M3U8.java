@@ -40,6 +40,16 @@ public class M3U8 {
         return get(tsUrlPre, m3u8content);
     }
 
+    private static double maxPercent(HashMap<String, Integer> preUrlMap) {
+        int maxTimes = 0, totalTimes = 0;
+        for (Map.Entry<String, Integer> entry : preUrlMap.entrySet()) {
+            if (entry.getValue() > maxTimes) {
+                maxTimes = entry.getValue();
+            }
+            totalTimes += entry.getValue();
+        }
+        return  maxTimes*1.0 / (totalTimes*1.0);
+    }
     /**
      * @author asdfgh
      * <a href="https://github.com/asdfgh"> asdfgh </a>
@@ -68,7 +78,7 @@ public class M3U8 {
             }
         }
         if (preUrlMap.size() <= 1) return null;
-        if (preUrlMap.size() > 5) {
+        if (maxPercent(preUrlMap) < 0.8) {
             //尝试判断域名，取同域名最多的链接，其它域名当作广告去除
             preUrlMap.clear();
             for (String line : lines) {
@@ -91,15 +101,7 @@ public class M3U8 {
                 }
             }
             if (preUrlMap.size() <= 1) return null;
-            int maxTimes = 0;
-            int totalTimes = 0;
-            for (Map.Entry<String, Integer> entry : preUrlMap.entrySet()) {
-                if (entry.getValue() > maxTimes) {
-                    maxTimes = entry.getValue();
-                }
-                totalTimes += entry.getValue();
-            }
-            if (maxTimes*1.0 / (totalTimes*1.0) < 0.8) {
+            if (maxPercent(preUrlMap) < 0.8) {
                 return null; //视频非广告片断占比不够大
             }
         }
