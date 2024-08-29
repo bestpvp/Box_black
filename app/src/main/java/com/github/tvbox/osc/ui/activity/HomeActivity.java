@@ -147,6 +147,7 @@ public class HomeActivity extends BaseActivity {
 
         EventBus.getDefault().register(this);
         ControlManager.get().startServer();
+        App.startWebserver();
         initView();
         initViewModel();
         useCacheConfig = false;
