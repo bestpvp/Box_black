@@ -79,7 +79,7 @@ public class CustomUtil {
             @Override
             public void run() {
                 String url = "https://gitee.com/bestpvp/config/raw/master/config/unify.json";
-                System.out.println("initCache: 请求接口: " + url);
+//                System.out.println("initCache: 请求接口: " + url);
                 String data = OkHttp.string(url);
 
                 // 使用 Handler 将结果传回主线程

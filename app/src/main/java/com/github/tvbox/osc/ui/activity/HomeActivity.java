@@ -162,13 +162,20 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void showDialog(Context context) {
-        if (!Hawk.get("welcome_dialog", false) && !CustomUtil.getAppMsg().isEmpty()) {
+        int showCount = Hawk.get("welcome_dialog_count", 0);
+        if (showCount < 3 && !CustomUtil.getAppMsg().isEmpty()) {
             new AlertDialog.Builder(context)
                     .setTitle(CustomUtil.getTitle())
                     .setMessage(CustomUtil.getAppMsg())
                     .setPositiveButton("我已了解", (dialog, which) -> {
                         System.out.println("App - 欢迎弹窗");
-                        Hawk.put("welcome_dialog", true);
+                        Hawk.put("welcome_dialog_count", showCount + 1);
+                        int lastCount = 3 - (showCount + 1);
+                        if (lastCount > 0){
+                            Toast.makeText(context, "您已确认，该弹窗还会弹出:" + lastCount +"次", Toast.LENGTH_SHORT).show();
+                        } else{
+                            Toast.makeText(context, "您已再三确认，谢谢！", Toast.LENGTH_SHORT).show();
+                        }
                     }).show();
         } else {
             System.out.println("App - 无需弹窗");
@@ -617,6 +624,7 @@ public class HomeActivity extends BaseActivity {
     public void onBackPressed() {
 
         // takagen99: Add check for VOD Delete Mode
+        super.onBackPressed();
         if (HawkConfig.hotVodDelete) {
             HawkConfig.hotVodDelete = false;
             UserFragment.homeHotVodAdapter.notifyDataSetChanged();
