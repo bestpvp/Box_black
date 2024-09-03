@@ -10,8 +10,8 @@ android {
         applicationId 'com.github.tvbox.wolong'
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 240903
-        versionName "240903"
+        versionCode 240904
+        versionName "240904"
         multiDexEnabled true
         //设置room的Schema的位置
         javaCompileOptions {
@@ -63,7 +63,7 @@ android {
         variant.outputs.configureEach { output ->
             def flavorNames = variant.productFlavors.collect { it.name }.join('-')
             // 构建自定义文件名
-            def fileName = "tm_box_wolong_${variant.buildType.name}_${flavorNames}_${versionName}.apk"
+            def fileName = "wolong_${variant.buildType.name}_${flavorNames}_${versionName}.apk"
             outputFileName = fileName
         }
     }
