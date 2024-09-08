@@ -11,17 +11,18 @@ import com.github.catvod.net.OkHttp;
 import com.orhanobut.hawk.Hawk;
 
 import java.net.URLEncoder;
+import java.util.Map;
 
 public class Jx {
 
-    public static String getUrl(Context context, String jxToken, String realPlayUrl) {
+    public static String getUrl(Context context, String jxToken, String realPlayUrl, Map<String, String> header) {
         try {
             String jxUrl = Hawk.get("jxUrl", "");
             if (jxUrl.isEmpty()) return realPlayUrl;
             // 对 URL 进行编码
             String enCodeUrl = URLEncoder.encode(realPlayUrl, "UTF-8");
             System.out.println("jxUrl: "+String.format(jxUrl, jxToken, enCodeUrl));
-            String response = OkHttp.string(String.format(jxUrl, jxToken, enCodeUrl));
+            String response = OkHttp.string(String.format(jxUrl, jxToken, enCodeUrl), header);
             if (response.isEmpty()) {
                 System.out.println("解析服务返回空, 不处理!");
                 return realPlayUrl;
@@ -61,7 +62,7 @@ public class Jx {
         void onResult(String result);
     }
 
-    public static void fetchUrl(Context context, String initialUrl, Callback callback) {
+    public static void fetchUrl(Context context, String initialUrl, Map<String, String> header, Callback callback) {
         System.out.println("解析开关: "+Hawk.get("remove_ad"));
         if (Hawk.get("remove_ad")) {
             if (initialUrl.contains(".m3u8") && !initialUrl.contains("www.lintech.work") && !initialUrl.contains("127.0.0.1") && !initialUrl.contains("0.0.0.0")) {
@@ -70,7 +71,7 @@ public class Jx {
                     @Override
                     public void run() {
                         String jxToken = Hawk.get("jx_token");
-                        final String resultUrl = getUrl(context, jxToken, initialUrl);
+                        final String resultUrl = getUrl(context, jxToken, initialUrl, header);
 
                         // 使用 Handler 将结果传回主线程
                         new Handler(Looper.getMainLooper()).post(new Runnable() {

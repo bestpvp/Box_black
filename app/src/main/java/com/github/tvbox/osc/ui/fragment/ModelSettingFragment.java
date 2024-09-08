@@ -29,6 +29,7 @@ import com.github.tvbox.osc.ui.activity.SettingActivity;
 import com.github.tvbox.osc.ui.adapter.ApiHistoryDialogAdapter;
 import com.github.tvbox.osc.ui.adapter.SelectDialogAdapter;
 import com.github.tvbox.osc.ui.dialog.AboutDialog;
+import com.github.tvbox.osc.ui.dialog.JxtokenDialog;
 import com.github.tvbox.osc.ui.dialog.ApiDialog;
 import com.github.tvbox.osc.ui.dialog.ApiHistoryDialog;
 import com.github.tvbox.osc.ui.dialog.BackupDialog;
@@ -518,34 +519,52 @@ public class ModelSettingFragment extends BaseLazyFragment {
             tvVideoPurifyText.setText(Hawk.get(HawkConfig.VIDEO_PURIFY, true) ? "开启" : "关闭");
         });
 
-        findViewById(R.id.tvVideoJxToken).setOnClickListener(v -> {
-            FastClickCheckUtil.check(v);
-            // 创建 EditText
-            final EditText input = new EditText(v.getContext());
-            input.setHint("关注公众号，免费获取");
+//        findViewById(R.id.llAbout).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FastClickCheckUtil.check(v);
+//                AboutDialog dialog = new AboutDialog(mActivity);
+//                dialog.show();
+//            }
+//        });
 
-            // 创建 AlertDialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-            builder.setTitle("JxToken")
-                    .setView(input)
-                    .setPositiveButton("保存", (dialog, which) -> {
-                        String newText = input.getText().toString();
-                        if (!TextUtils.isEmpty(newText)) {
-                            Hawk.put("jx_token", newText);
-                            jxtokenText.setText(newText);
-                            System.out.println("JxToken 保存成功 -> "+Hawk.get("jx_token"));
-                            Toast.makeText(v.getContext(), "JxToken 保存成功", Toast.LENGTH_SHORT).show();
-                        } else {
-                            System.out.println("JxToken 保存失败 -> 空");
-                            Toast.makeText(v.getContext(), "JxToken 为空", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .setNegativeButton("取消", (dialog, which) -> dialog.cancel());
-
-            // 显示对话框
-            builder.show();
-
+        findViewById(R.id.tvVideoJxToken).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastClickCheckUtil.check(v);
+                JxtokenDialog dialog = new JxtokenDialog(mActivity);
+                dialog.show();
+            }
         });
+
+//        findViewById(R.id.tvVideoJxToken).setOnClickListener(v -> {
+//            FastClickCheckUtil.check(v);
+//            // 创建 EditText
+//            final EditText input = new EditText(v.getContext());
+//            input.setHint("关注公众号，免费获取");
+//
+//            // 创建 AlertDialog
+//            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+//            builder.setTitle("JxToken")
+//                    .setView(input)
+//                    .setPositiveButton("保存", (dialog, which) -> {
+//                        String newText = input.getText().toString();
+//                        if (!TextUtils.isEmpty(newText)) {
+//                            Hawk.put("jx_token", newText);
+//                            jxtokenText.setText(newText);
+//                            System.out.println("JxToken 保存成功 -> "+Hawk.get("jx_token"));
+//                            Toast.makeText(v.getContext(), "JxToken 保存成功", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            System.out.println("JxToken 保存失败 -> 空");
+//                            Toast.makeText(v.getContext(), "JxToken 为空", Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
+//                    .setNegativeButton("取消", (dialog, which) -> dialog.cancel());
+//
+//            // 显示对话框
+//            builder.show();
+//
+//        });
 
         // 3. SYSTEM Configuration -------------------------------------------------------------- //
         // Select Webview ---------------------------------------------

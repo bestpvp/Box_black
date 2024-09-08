@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/shape_dialog_bg_main"
+    android:orientation="vertical"
+    android:padding="@dimen/vs_30">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<!--        <TextView-->
+<!--            android:id="@+id/jxTokenTitle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="@dimen/vs_20"-->
+<!--            android:text="@string/jxTokenTitle"-->
+<!--            android:textColor="@color/color_FFFFFF"-->
+<!--            android:textSize="@dimen/ts_24" />-->
+
+        <TextView
+            android:id="@+id/jxTokenTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_20"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.5"
+            android:shadowColor="@color/color_000000_60"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/jxTokenTitle"
+            android:textColor="@color/color_FFFFFF"
+            android:textSize="@dimen/ts_24"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="263dp"
+        android:layout_height="91dp"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/qrcode" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/jxTokenInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/jxTokenInputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/jxTokenInputText"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/jxTokenButton_cancel"
+            android:layout_width="@dimen/vs_20"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/button_dialog_main"
+            android:focusable="true"
+            android:gravity="center"
+            android:padding="@dimen/vs_10"
+            android:text="@string/jxTokenButton_cancel"
+            android:textColor="@color/color_FFFFFF" />
+
+<!--        <Button-->
+<!--            android:id="@+id/jxTokenButton_cancel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/jxTokenButton_cancel" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/jxTokenButton_save"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/jxTokenButton_save"-->
+<!--            android:layout_marginStart="16dp" />-->
+
+        <TextView
+            android:id="@+id/jxTokenButton_save"
+            android:layout_width="@dimen/vs_60"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/vs_30"
+            android:layout_weight="1"
+            android:background="@drawable/button_dialog_main"
+            android:focusable="true"
+            android:gravity="center"
+            android:padding="@dimen/vs_10"
+            android:text="@string/jxTokenButton_save"
+            android:textColor="@color/color_FFFFFF" />
+
+    </LinearLayout>
+
+</LinearLayout>

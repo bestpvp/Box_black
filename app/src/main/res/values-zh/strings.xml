@@ -192,6 +192,10 @@
     <string name="sub_delay">偏移</string>
     <string name="sub_style">样式</string>
     <string name="sub_style_text">字幕</string>
+    <string name="jxTokenTitle">JxToken</string>
+    <string name="jxTokenButton_cancel">取消</string>
+    <string name="jxTokenButton_save">保存</string>
+    <string name="jxTokenInputText">关注公众号, 免费获取</string>
 
     <string-array name="media_title">
         <item>通用</item>

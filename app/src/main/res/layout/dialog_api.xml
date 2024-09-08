@@ -63,10 +63,11 @@
                             android:id="@+id/headerTvAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/vs_20"
                             android:padding="5dp"
                             android:text="headerTvAddress"
-                            android:textSize="18mm" />
+                            android:textSize="@dimen/ts_18"
+                            android:maxLines="3"
+                            android:ellipsize="end" />
 
                     </LinearLayout>
 
@@ -86,7 +87,7 @@
                             android:layout_marginTop="@dimen/vs_20"
                             android:layout_weight="1"
                             android:background="@drawable/input_dialog_api_input"
-                            android:hint="1. 请输入数据源地址"
+                            android:hint="请输入数据源地址"
                             android:inputType="text"
                             android:maxLines="1"
                             android:paddingLeft="@dimen/vs_2"
@@ -103,15 +104,16 @@
 
                         <LinearLayout
                             android:id="@+id/apiHistory"
-                            android:layout_width="@dimen/vs_80"
-                            android:layout_height="match_parent"
+                            android:layout_width="60dp"
+                            android:layout_height="33dp"
                             android:layout_marginStart="@dimen/vs_5"
                             android:layout_marginLeft="@dimen/vs_5"
+                            android:layout_marginTop="@dimen/vs_20"
                             android:background="@drawable/shape_setting_model_focus"
                             android:focusable="true"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:padding="@dimen/vs_10">
+                            android:padding="@dimen/vs_5">
 
                             <ImageView
                                 android:layout_width="@dimen/vs_30"
