@@ -10,17 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-<!--        <TextView-->
-<!--            android:id="@+id/jxTokenTitle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_marginTop="@dimen/vs_20"-->
-<!--            android:text="@string/jxTokenTitle"-->
-<!--            android:textColor="@color/color_FFFFFF"-->
-<!--            android:textSize="@dimen/ts_24" />-->
-
         <TextView
             android:id="@+id/jxTokenTitle"
             android:layout_width="match_parent"
@@ -84,19 +73,6 @@
             android:padding="@dimen/vs_10"
             android:text="@string/jxTokenButton_cancel"
             android:textColor="@color/color_FFFFFF" />
-
-<!--        <Button-->
-<!--            android:id="@+id/jxTokenButton_cancel"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/jxTokenButton_cancel" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/jxTokenButton_save"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/jxTokenButton_save"-->
-<!--            android:layout_marginStart="16dp" />-->
 
         <TextView
             android:id="@+id/jxTokenButton_save"
