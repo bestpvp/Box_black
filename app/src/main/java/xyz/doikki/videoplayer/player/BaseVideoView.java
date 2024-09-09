@@ -542,6 +542,13 @@ public class BaseVideoView<P extends AbstractPlayer> extends FrameLayout
     }
 
     /**
+     * 停止播放
+     */
+    public void stopPlay() {
+        mMediaPlayer.stop();
+    }
+
+    /**
      * 播放信息回调，播放中的缓冲开始与结束，开始渲染视频第一帧，视频旋转信息
      */
     @Override

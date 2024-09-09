@@ -140,6 +140,7 @@ public class VodController extends BaseController {
                         if (((BaseActivity) mActivity).supportsTouch()) {
                             mBack.setVisibility(VISIBLE);
                         }
+                        updateDanmuBtn();
                         showLockView();
 
                         if (isKeyUp) {
@@ -208,6 +209,7 @@ public class VodController extends BaseController {
                                         mBottomRoot.clearAnimation();
                                     }
                                 });
+                        mDanmuSetting.setVisibility(GONE);
                         mBack.setVisibility(GONE);
                         mLockView.setVisibility(GONE);
                         break;
@@ -251,6 +253,10 @@ public class VodController extends BaseController {
 
     // center BACK button
     LinearLayout mBack;
+
+    LinearLayout mDanmuSetting;
+
+    private boolean hasDanmu = false;
 
     //center LOCK button    
     private boolean isLock = false;
@@ -368,6 +374,7 @@ public class VodController extends BaseController {
 
         // center back button
         mBack = findViewById(R.id.tvBackButton);
+        mDanmuSetting = findViewById(R.id.ll_danmu_setting);
 
         // center lock button
         mLockView = findViewById(R.id.tv_lock);
@@ -421,6 +428,7 @@ public class VodController extends BaseController {
         mTopRoot.setVisibility(INVISIBLE);
         mBottomRoot.setVisibility(INVISIBLE);
         mBack.setVisibility(INVISIBLE);
+        mDanmuSetting.setVisibility(INVISIBLE);
 
         // initialize subtitle
         initSubtitleInfo();
@@ -964,6 +972,7 @@ public class VodController extends BaseController {
                     mBack.setVisibility(GONE);
                     mLockView.setVisibility(GONE);
                     mProgressTop.setVisibility(GONE);
+                    mDanmuSetting.setVisibility(GONE);
                     mHandler.removeCallbacks(mHideBottomRunnable);
                     if (mActivity != null) {
                         if (mActivity.getClass().getSimpleName().equals("DetailActivity")) {
@@ -990,6 +999,10 @@ public class VodController extends BaseController {
                 hideBottom();
                 //Toast.makeText(getContext(), "点击显示网速 播放进度 时间", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        mDanmuSetting.setOnClickListener(view -> {
+            listener.showDanmuSetting();
         });
 
     }
@@ -1093,6 +1106,8 @@ public class VodController extends BaseController {
         void selectAudioTrack();
 
         void openVideo();
+
+        void showDanmuSetting();
 
     }
 
@@ -1602,5 +1617,17 @@ public class VodController extends BaseController {
             mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
         return false;
+    }
+
+    public void updateDanmuBtn(){
+        if(hasDanmu){
+            mDanmuSetting.setVisibility(VISIBLE);
+        }else{
+            mDanmuSetting.setVisibility(GONE);
+        }
+    }
+
+    public void setHasDanmu(boolean hasDanmu){
+        this.hasDanmu = hasDanmu;
     }
 }

@@ -168,6 +168,11 @@ dependencies {
     implementation 'io.github.inflationx:calligraphy3:3.1.1'
     implementation 'com.yanzhenjie.andserver:api:2.1.12'
     kapt 'com.yanzhenjie.andserver:processor:2.1.12'
+    implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
+    implementation('org.simpleframework:simple-xml:2.7.1') {
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'xpp3', module: 'xpp3'
+    }
     configurations {
         configureEach {
             exclude group: 'xpp3', module: 'xpp3'
