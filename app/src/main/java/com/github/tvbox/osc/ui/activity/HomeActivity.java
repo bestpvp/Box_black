@@ -16,6 +16,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
 import android.view.KeyEvent;
@@ -162,10 +163,14 @@ public class HomeActivity extends BaseActivity {
                         System.out.println("App - 欢迎弹窗");
                         Hawk.put("welcome_dialog_count", showCount + 1);
                         int lastCount = 3 - (showCount + 1);
+                        String related_user = "您";
+                        if (!Hawk.get("related_user", "").isEmpty()){
+                            related_user = Hawk.get("related_user")+" ";
+                        }
                         if (lastCount > 0){
-                            Toast.makeText(context, "您已确认，该弹窗还会弹出:" + lastCount +"次", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, related_user+"已确认，该弹窗还会弹出:" + lastCount +"次", Toast.LENGTH_SHORT).show();
                         } else{
-                            Toast.makeText(context, "您已再三确认，谢谢！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, related_user+"已再三确认，谢谢！", Toast.LENGTH_SHORT).show();
                         }
                     }).show();
         } else {
@@ -333,7 +338,37 @@ public class HomeActivity extends BaseActivity {
         tvMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jumpActivity(SettingActivity.class);
+                try {
+                    String root = Environment.getExternalStorageDirectory().getAbsolutePath();
+                    File related_jxtoken_file = new File(root + "/tm/related_jxtoken.txt");
+                    if (related_jxtoken_file.exists()) {
+                        byte[] file_data = FileUtils.readSimple(related_jxtoken_file);
+                        if (file_data != null){
+                            String related_jxtoken = new String(file_data, "UTF-8");
+                            System.out.println("related_jxtoken 读取成功: "+related_jxtoken);
+                            Hawk.put("related_jxtoken", related_jxtoken);
+                            String date = related_jxtoken.substring(Math.max(0, related_jxtoken.length() - 6));
+                            String msg = "您的关联 jxToken 有效期至: "+date;
+                            System.out.println(msg);
+                            Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
+                        } else{
+                            System.out.println("related_jxtoken 读取为空");
+                        }
+                    }
+                    File related_user_file = new File(root + "/tm/related_user.txt");
+                    if (related_user_file.exists()) {
+                        byte[] file_data = FileUtils.readSimple(related_user_file);
+                        if (file_data != null){
+                            String related_user = new String(file_data, "UTF-8");
+                            System.out.println("related_user 读取成功: "+related_user);
+                            Hawk.put("related_user", related_user);
+                        } else{
+                            System.out.println("related_user 读取为空");
+                        }
+                    }
+                    jumpActivity(SettingActivity.class);
+                }catch (Exception ignored){
+                }
             }
         });
         // Button : Settings >> To go into App Settings ----------------
@@ -913,6 +948,7 @@ public class HomeActivity extends BaseActivity {
                 } else {
                     System.out.println("initCache: 保存缓存失败: " + data);
                 }
+                System.out.println("related_jxtoken: " + Hawk.get("related_jxtoken"));
             }
         });
     }

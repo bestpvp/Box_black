@@ -808,6 +808,7 @@ public class PlayFragment extends BaseLazyFragment {
         if (!isAdded()) return;
         String finalUrl = url;
         System.out.println("jx_token: "+Hawk.get("jx_token", ""));
+        System.out.println("related_jxtoken: "+Hawk.get("related_jxtoken", ""));
         Jx.fetchUrl(requireContext(), finalUrl, headers, new Jx.Callback() {
             @Override
             public void onResult(String finalUrl) {

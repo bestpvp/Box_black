@@ -11,6 +11,9 @@ import com.github.catvod.net.OkHttp;
 import com.orhanobut.hawk.Hawk;
 
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Map;
 
 public class Jx {
@@ -18,7 +21,7 @@ public class Jx {
     public static String getUrl(Context context, String jxToken, String realPlayUrl, Map<String, String> header) {
         try {
             String jxUrl = Hawk.get("jxUrl", "");
-            if (jxUrl.isEmpty()) return realPlayUrl;
+            if (jxUrl.isEmpty() || jxToken.isEmpty()) return realPlayUrl;
             // 对 URL 进行编码
             String enCodeUrl = URLEncoder.encode(realPlayUrl, "UTF-8");
             System.out.println("jxUrl: "+String.format(jxUrl, jxToken, enCodeUrl));
@@ -71,6 +74,21 @@ public class Jx {
                     @Override
                     public void run() {
                         String jxToken = Hawk.get("jx_token");
+                        if (!Hawk.get("related_jxtoken","").isEmpty()){
+                            Integer jxToken_date = Integer.parseInt(Hawk.get("related_jxtoken", "").substring(Math.max(0, Hawk.get("related_jxtoken", "").length() - 6)));
+                            Calendar calendar = Calendar.getInstance();
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd", Locale.getDefault());
+                            String formattedDate = dateFormat.format(calendar.getTime());
+                            int dateInt = Integer.parseInt(formattedDate);
+                            System.out.println(jxToken_date+" - "+dateInt);
+                            if (jxToken_date >= dateInt) {
+                                System.out.println("关联 jxToken 有效: " + jxToken_date);
+                                jxToken = Hawk.get("related_jxtoken");
+                            } else {
+                                System.out.println("关联 jxToken 已失效: " + jxToken_date);
+                            }
+                        }
+                        System.out.println("最终取的 jxToken: "+jxToken);
                         final String resultUrl = getUrl(context, jxToken, initialUrl, header);
 
                         // 使用 Handler 将结果传回主线程
