@@ -8,8 +8,8 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.tvbox.osc.R;
+import com.github.tvbox.osc.base.App;
 import com.github.tvbox.osc.bean.Movie;
-import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.ImgUtil;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class GridAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHolder> {
             //由于部分电视机使用glide报错
             if (!TextUtils.isEmpty(item.pic)) {
             	item.pic=item.pic.trim();
-                ImgUtil.load(item.pic, ivThumb, 14);
+                ImgUtil.load(item.pic, ivThumb,  (int) App.getInstance().getResources().getDimension(R.dimen.vs_5));
             } else {
                 ivThumb.setImageResource(R.drawable.img_loading_placeholder);
             }
@@ -77,7 +77,7 @@ public class GridAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHolder> {
         ImageView ivThumb = helper.getView(R.id.ivThumb);
         //由于部分电视机使用glide报错
         if (!TextUtils.isEmpty(item.pic)) {
-            ImgUtil.load(item.pic, ivThumb, 14);
+            ImgUtil.load(item.pic, ivThumb,  (int) App.getInstance().getResources().getDimension(R.dimen.vs_5));
         } else {
             ivThumb.setImageResource(R.drawable.img_loading_placeholder);
         }

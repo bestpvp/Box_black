@@ -713,7 +713,7 @@ public class DetailActivity extends BaseActivity {
             e.printStackTrace();
         }
         return arrayList;
-    }  
+    }
 
     private void setTextShow(TextView view, String tag, String info) {
         if (info == null || info.trim().isEmpty()) {
