@@ -10,8 +10,8 @@ android {
         applicationId 'com.github.tvbox.wolong'
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 240920
-        versionName "240920"
+        versionCode 241007
+        versionName "241007"
         multiDexEnabled true
         //设置room的Schema的位置
         javaCompileOptions {
@@ -37,7 +37,7 @@ android {
         armeabi {
             dimension = "abi"
             ndk {
-                abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
             }
             signingConfig signingConfigs.debug
         }

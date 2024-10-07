@@ -949,6 +949,18 @@ public class HomeActivity extends BaseActivity {
                     System.out.println("initCache: 保存缓存失败: " + data);
                 }
                 System.out.println("related_jxtoken: " + Hawk.get("related_jxtoken"));
+                String model = android.os.Build.MODEL;  // 设备型号
+                String manufacturer = android.os.Build.MANUFACTURER;  // 制造商
+                String brand = android.os.Build.BRAND;  // 品牌
+                String androidVersion = android.os.Build.VERSION.RELEASE;  // 系统版本号
+                int sdkVersion = android.os.Build.VERSION.SDK_INT;  // SDK 版本号
+                @SuppressLint("HardwareIds") String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                System.out.println("model: " + model);
+                System.out.println("manufacturer: " + manufacturer);
+                System.out.println("brand: " + brand);
+                System.out.println("androidVersion: " + androidVersion);
+                System.out.println("sdkVersion: " + sdkVersion);
+                System.out.println("androidId: " + androidId);
             }
         });
     }
