@@ -77,6 +77,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -929,25 +931,37 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onResult(String data) {
                 if (!data.isEmpty()) {
-                    JsonObject object = JsonParser.parseString(data).getAsJsonObject();
-                    Hawk.put("force_refresh", object.get("force_refresh").getAsInt());
-                    Hawk.put("source", object.get("source").getAsString());
-                    Hawk.put("app_message", object.get("app_message").getAsString());
-                    Hawk.put("filter", object.getAsJsonArray("filter").toString());
-                    Hawk.put("prefix_wolong", object.get("prefix_wolong").getAsString());
-                    Hawk.put("title", object.get("title").getAsString());
-                    Hawk.put("jxUrl", object.get("jxUrl").getAsString());
-                    Hawk.put("remove_ad", true);
-                    System.out.println("source: " + Hawk.get("source"));
-                    System.out.println("title: " + Hawk.get("title"));
-                    System.out.println("remove_ad: " + Hawk.get("remove_ad"));
-                    System.out.println("app_message: " + Hawk.get("app_message"));
-                    System.out.println("jx_token: " + Hawk.get("jx_token"));
-                    System.out.println("initCache: 保存缓存成功");
-                    initData();
+                    try {
+                        JsonObject object = JsonParser.parseString(data).getAsJsonObject();
+                        Hawk.put("force_refresh", object.get("force_refresh").getAsInt());
+                        Hawk.put("source", object.get("source").getAsString());
+                        Hawk.put("app_message", object.get("app_message").getAsString());
+                        Hawk.put("filter", object.getAsJsonArray("filter").toString());
+                        Hawk.put("prefix_wolong", object.get("prefix_wolong").getAsString());
+                        Hawk.put("title", object.get("title").getAsString());
+                        Hawk.put("jxUrl", object.get("jxUrl").getAsString());
+                        Hawk.put("remove_ad", true);
+                        System.out.println("source: " + Hawk.get("source"));
+                        System.out.println("title: " + Hawk.get("title"));
+                        System.out.println("remove_ad: " + Hawk.get("remove_ad"));
+                        System.out.println("app_message: " + Hawk.get("app_message"));
+                        System.out.println("jx_token: " + Hawk.get("jx_token"));
+                        System.out.println("initCache: 保存缓存成功");
+                    } catch (Exception e) {
+                        // 将异常信息转换为字符串
+                        StringWriter sw = new StringWriter();
+                        PrintWriter pw = new PrintWriter(sw);
+                        e.printStackTrace(pw);
+                        String errorMessage = sw.toString(); // 捕获异常的字符串表示
+
+                        // 打印错误信息
+                        System.out.println("initCache: 动态配置解析 json 异常");
+                        System.out.println(errorMessage);
+                    }
                 } else {
                     System.out.println("initCache: 保存缓存失败: " + data);
                 }
+                initData();
                 System.out.println("related_jxtoken: " + Hawk.get("related_jxtoken"));
                 String model = android.os.Build.MODEL;  // 设备型号
                 String manufacturer = android.os.Build.MANUFACTURER;  // 制造商
